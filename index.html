@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Quiz</title>
-    
     <style>
         #puzzle, #photo, #okButton { display: none; }
     </style>
@@ -14,6 +13,7 @@
     <div id="scanner"></div>
     <div id="puzzle">
         <h2>Puzzle: <span id="puzzleText"></span></h2>
+        <img id="questionImage" src="" alt="Puzzle Question Image" style="max-width: 300px;" />
         <input type="text" id="answerInput" placeholder="Enter your answer" />
         <button id="submitAnswer">Submit Answer</button>
     </div>
@@ -21,13 +21,26 @@
         <img id="photoImage" src="" alt="Puzzle Answer Photo" />
         <button id="okButton">OK</button>
     </div>
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"> </script>
+
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
     <script>
+        // Modified puzzles object with question image
         const puzzles = {
-            "qrcode1": { question: "How many triangles are selected?", answer: "3", image: "photo1.jpg" },
-            "qrcode2": { question: "What is the capital of France?", answer: "Paris", image: "photo2.jpg" }
+            "qrcode1": { 
+                question: "How many triangles are selected?", 
+                answer: "3", 
+                image: "correct.jpg", 
+                questionImage: "photo1.jpg" 
+            },
+            "qrcode2": { 
+                question: "What is the capital of France?", 
+                answer: "Paris", 
+                image: "correct.jpg", 
+                questionImage: "photo2.jpg" 
+            }
         };
+
         let currentPuzzle = null;
 
         function openScanner() {
@@ -40,7 +53,7 @@
                     html5QrCode.stop();
                 },
                 errorMessage => {
-                    // handle errors here
+                    console.error(errorMessage);
                 }
             ).catch(err => {
                 console.error(err);
@@ -51,6 +64,7 @@
             if (puzzles[qrCode]) {
                 currentPuzzle = puzzles[qrCode];
                 document.getElementById("puzzleText").innerText = currentPuzzle.question;
+                document.getElementById("questionImage").src = currentPuzzle.questionImage; // Set the question image
                 document.getElementById("puzzle").style.display = 'block';
             }
         }
@@ -68,7 +82,7 @@
 
         document.getElementById("okButton").addEventListener("click", function () {
             document.getElementById("photo").style.display = 'none';
-            openScanner();  // Reopen the scanner for the next QR code
+            openScanner();
         });
 
         // Start by opening the scanner
