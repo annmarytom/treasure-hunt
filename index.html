@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Quiz</title>
+    <title>QR Treasure Hunt</title>
     <style>
-        #puzzle, #photo, #okButton { display: none; }
+        #puzzle, #photo, #okButton, #hint { display: none; }
     </style>
 </head>
 <body>
@@ -21,23 +21,30 @@
         <img id="photoImage" src="" alt="Puzzle Answer Photo" />
         <button id="okButton">OK</button>
     </div>
+    <div id="hint">
+        <h3>Hint for the next stage:</h3>
+        <p id="nextHint"></p>
+    </div>
 
+    <!-- Correct HTML5-Qrcode script -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
     <script>
-        // Modified puzzles object with question image
+        // Modified puzzles object with hints for the next stage
         const puzzles = {
             "qrcode1": { 
                 question: "How many triangles are selected?", 
                 answer: "3", 
-                image: "correct.jpg", 
-                questionImage: "photo1.jpg" 
+                image: "photo1.jpg", 
+                questionImage: "triangle_question.png", 
+                hint: "Proceed to the room with the red door."
             },
             "qrcode2": { 
                 question: "What is the capital of France?", 
                 answer: "Paris", 
-                image: "correct.jpg", 
-                questionImage: "photo2.jpg" 
+                image: "photo2.jpg", 
+                questionImage: "paris_question.jpg", 
+                hint: "Look under the table near the window."
             }
         };
 
@@ -66,6 +73,7 @@
                 document.getElementById("puzzleText").innerText = currentPuzzle.question;
                 document.getElementById("questionImage").src = currentPuzzle.questionImage; // Set the question image
                 document.getElementById("puzzle").style.display = 'block';
+                document.getElementById("hint").style.display = 'none'; // Hide the hint initially
             }
         }
 
@@ -75,6 +83,8 @@
                 document.getElementById("photoImage").src = currentPuzzle.image;
                 document.getElementById("photo").style.display = 'block';
                 document.getElementById("puzzle").style.display = 'none';
+                document.getElementById("nextHint").innerText = currentPuzzle.hint; // Set the hint for the next stage
+                document.getElementById("hint").style.display = 'block'; // Show the hint
             } else {
                 alert("Incorrect answer!");
             }
@@ -82,7 +92,7 @@
 
         document.getElementById("okButton").addEventListener("click", function () {
             document.getElementById("photo").style.display = 'none';
-            openScanner();
+            openScanner();  // Reopen the scanner for the next QR code
         });
 
         // Start by opening the scanner
