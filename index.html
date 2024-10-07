@@ -365,7 +365,7 @@
             if (passwordInput === currentPuzzle.password) {
                 if (typeof(currentPuzzle.answer) == 'object') {
                     document.getElementById("puzzleText2").innerText = currentPuzzle.question;
-                    document.getElementById("questionImage2").src = currentPuzzle.questionImage; // Set the question image
+                    document.getElementById("questionImage").src = currentPuzzle.questionImage; // Set the question image
                     document.getElementById("puzzle2").style.display = 'block';
                 }else{
                     document.getElementById("puzzleText").innerText = currentPuzzle.question;
