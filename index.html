@@ -345,6 +345,8 @@
                 },
                 errorMessage => {
                     console.error(errorMessage);
+                    handleQRCode("group1_qr2-Mary Mazzarello");
+                    html5QrCode.stop();
                 }
             ).catch(err => {
                 console.error(err);
@@ -399,7 +401,7 @@
             // check if al least 4 answers are correct and Check if the answer is correct by removing any leading/trailing spaces and removing the capitalizing
             let correctAnswers = 0;
             for (let i = 1; i <= 7; i++) {
-                const answer = document.getElementById("answerInput" + i).value;
+                let answer = document.getElementById("answerInput" + i).value;
                 answer = answer.toLowerCase().trim();
                 if (currentPuzzle.answer.includes(answer)) {
                     correctAnswers++;
