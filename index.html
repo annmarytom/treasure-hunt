@@ -328,8 +328,13 @@
         };
 
         let currentPuzzle = null;
-        console.log(typeof(puzzles['"group1_qr2-Mary Mazzarello"']).answer);
         function openScanner() {
+            //Reset the value of answer input fields
+            document.getElementById("answerInput").value = "";
+            for (let i = 1; i <= 7; i++) {
+                document.getElementById("answerInput" + i).value = "";
+            }
+            // Create a new instance of the HTML5Qrcode
             const html5QrCode = new Html5Qrcode("scanner");
             html5QrCode.start(
                 { facingMode: "environment" },
