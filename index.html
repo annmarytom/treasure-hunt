@@ -108,7 +108,7 @@
     </div>
     <div id="puzzle2">
         <h2>Puzzle: <span id="puzzleText2"></span></h2>
-        <img id="questionImage" src="" alt="Puzzle Question Image" style="max-width: 300px;" />
+        <img id="questionImage2" src="" alt="Puzzle Question Image" style="max-width: 300px;" />
         <input type="text" id="answerInput1" placeholder="Enter your answer 1" />
         <input type="text" id="answerInput2" placeholder="Enter your answer 2" />
         <input type="text" id="answerInput3" placeholder="Enter your answer 3" />
@@ -365,7 +365,7 @@
             if (passwordInput === currentPuzzle.password) {
                 if (typeof(currentPuzzle.answer) == 'object') {
                     document.getElementById("puzzleText2").innerText = currentPuzzle.question;
-                    document.getElementById("questionImage").src = currentPuzzle.questionImage; // Set the question image
+                    document.getElementById("questionImage2").src = currentPuzzle.questionImage; // Set the question image
                     document.getElementById("puzzle2").style.display = 'block';
                 }else{
                     document.getElementById("puzzleText").innerText = currentPuzzle.question;
