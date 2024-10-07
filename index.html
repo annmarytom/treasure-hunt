@@ -5,7 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Treasure Hunt</title>
     <style>
-        #puzzle, #photo, #okButton, #hint, #passwordDiv, #puzzle2 { display: none; }
+        /* #puzzle, #photo, #okButton, #hint, #passwordDiv, #puzzle2 { display: none; } */
+        /* General styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+        /* Centered scanner container */
+        #scanner {
+            margin: 20px auto;
+        }
+
+        /* Modern button styling */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Style input fields */
+        input[type="text"], input[type="password"] {
+            width: 80%;
+            padding: 12px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        /* Responsive image styling */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for puzzle container */
+        #puzzle, #photo, #hint, #passwordDiv {
+            padding: 20px;
+            background-color: white;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive layout for smaller screens */
+        @media (max-width: 600px) {
+            button {
+                width: 100%;
+            }
+
+            input[type="text"], input[type="password"] {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
