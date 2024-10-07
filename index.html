@@ -363,7 +363,7 @@
         document.getElementById("submitPassword").addEventListener("click", function () {
             const passwordInput = document.getElementById("teamPasswordInput").value;
             if (passwordInput === currentPuzzle.password) {
-                if (typeof(currentPuzzle.answer) == 'object') {
+                if (typeof(currentPuzzle.answer) == 'object' && currentPuzzle.questionImage == "puzzle2.jpg" ) {
                     document.getElementById("puzzleText2").innerText = currentPuzzle.question;
                     document.getElementById("questionImage2").src = currentPuzzle.questionImage; // Set the question image
                     document.getElementById("puzzle2").style.display = 'block';
@@ -381,7 +381,7 @@
 
         document.getElementById("submitAnswer").addEventListener("click", function () {
             const answer = document.getElementById("answerInput").value;
-            if (typeof(currentPuzzle.answer) == 'object') {
+            if (typeof(currentPuzzle.answer) == 'object' && currentPuzzle.questionImage == "puzzle5.jpg" ) {
                 // Check if the answer is correct by removing any leading/trailing spaces and removing the capitalizing for any of the correct answers
                 for (let i = 0; i < currentPuzzle.answer.length; i++) {
                     if (currentPuzzle.answer[i].toLowerCase().trim() === answer.toLowerCase().trim()) {
