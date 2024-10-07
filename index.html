@@ -328,7 +328,7 @@
         };
 
         let currentPuzzle = null;
-
+        console.log(typeof(puzzles['"group1_qr2-Mary Mazzarello"']).answer);
         function openScanner() {
             const html5QrCode = new Html5Qrcode("scanner");
             html5QrCode.start(
@@ -357,7 +357,7 @@
         document.getElementById("submitPassword").addEventListener("click", function () {
             const passwordInput = document.getElementById("teamPasswordInput").value;
             if (passwordInput === currentPuzzle.password) {
-                if (typeof(currentPuzzle.answer) == 'list') {
+                if (typeof(currentPuzzle.answer) == 'object') {
                     document.getElementById("puzzleText2").innerText = currentPuzzle.question;
                     document.getElementById("questionImage2").src = currentPuzzle.questionImage; // Set the question image
                     document.getElementById("puzzle2").style.display = 'block';
