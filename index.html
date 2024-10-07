@@ -5,17 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Treasure Hunt</title>
     <style>
-        #puzzle, #photo, #okButton, #hint { display: none; }
+        #puzzle, #photo, #okButton, #hint, #passwordDiv { display: none; }
     </style>
 </head>
 <body>
 
     <div id="scanner"></div>
+    
+    <!-- Password input section -->
+    <div id="passwordDiv">
+        <h3>Enter Team Password</h3>
+        <input type="password" id="teamPasswordInput" placeholder="Enter password" />
+        <button id="submitPassword">Submit Password</button>
+    </div>
+    
     <div id="puzzle">
         <h2>Puzzle: <span id="puzzleText"></span></h2>
         <img id="questionImage" src="" alt="Puzzle Question Image" style="max-width: 300px;" />
         <input type="text" id="answerInput" placeholder="Enter your answer" />
         <button id="submitAnswer">Submit Answer</button>
+    </div>
+    <div id="puzzle2">
+        <h2>Puzzle: <span id="puzzleText2"></span></h2>
+        <img id="questionImage" src="" alt="Puzzle Question Image" style="max-width: 300px;" />
+        <input type="text" id="answerInput1" placeholder="Enter your answer 1" />
+        <input type="text" id="answerInput2" placeholder="Enter your answer 2" />
+        <input type="text" id="answerInput3" placeholder="Enter your answer 3" />
+        <input type="text" id="answerInput4" placeholder="Enter your answer 4" />
+        <input type="text" id="answerInput5" placeholder="Enter your answer 5" />
+        <input type="text" id="answerInput6" placeholder="Enter your answer 6" />
+        <input type="text" id="answerInput7" placeholder="Enter your answer 7" />
+        <button id="submitAnswer2">Submit Answer</button>
     </div>
     <div id="photo">
         <img id="photoImage" src="" alt="Puzzle Answer Photo" />
@@ -30,21 +50,199 @@
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
     <script>
-        // Modified puzzles object with hints for the next stage
+        // Modified puzzles object with hints and passwords for each team
         const puzzles = {
-            "qrcode1": { 
+            "group1_qr0-John Bosco": { 
                 question: "How many triangles are selected?", 
                 answer: "3", 
-                image: "correct.jpg", 
+                image: "Group 1/photo1.jpg", 
                 questionImage: "photo1.jpg", 
-                hint: "Proceed to the room with the red door."
+                hint: "Proceed to this location for the next clue..",
+                password: "team1-password"
             },
-            "qrcode2": { 
-                question: "What is the capital of France?", 
-                answer: "Paris", 
+            "group1_qr1-Dominic Savio": { 
+                question: "What is answer?", 
+                answer: "Bosco ponthokkan", 
+                image: "Group 1/photo2.jpg", 
+                questionImage: "puzzle1.jpg", 
+                hint: "Proceed to this location for the next clue..",
+                password: "team1-password"
+            },
+            "group1_qr2-Mary Mazzarello": { 
+                question: "Provide at least 4 correct answers out of 7.", 
+                answer: ['ebinesh','ubuntu','mary','by your light we see light','ministers','1968','i am the light of the world'], 
+                image: "Group 1/photo3.jpg", 
+                questionImage: "puzzle2.jpg", 
+                hint: "Proceed to this location for the next clue..",
+                password: "team1-password"
+            },
+            "group1_qr3-Michele Rua": { 
+                question: "What is answer?", 
+                answer: "I am because we are", 
+                image: "Group 1/photo4.jpg", 
+                questionImage: "puzzle3.jpg", 
+                hint: "Proceed to this location for the next clue..",
+                password: "team1-password"
+            },
+            "group1_qr4-Francesco Cagliero": { 
+                question: "What is answer?", 
+                answer: "By your light we see light", 
+                image: "Group 1/photo5.jpg", 
+                questionImage: "puzzle4.jpg", 
+                hint: "Proceed to this location for the next clue..",
+                password: "team1-password"
+            },
+            "group1_qr5-Luigi Variara": { 
+                question: "What is answer?", 
+                answer: "chapel", 
                 image: "correct.jpg", 
-                questionImage: "photo2.jpg", 
-                hint: "Look under the table near the window."
+                questionImage: "puzzle5.jpg", 
+                hint: "Congratulations..... Go fast and collect your treasure....",
+                password: "team1-password"
+            },
+            "group2_qr0-Philip Rinaldi": { 
+                question: "How many triangles are selected?", 
+                answer: "3", 
+                image: "Group 2/photo1.jpg", 
+                questionImage: "photo1.jpg", 
+                hint: "Proceed to this location for the next clue..",
+                password: "team2-password"
+            },
+            "group2_qr1-Giovanni Cagliero": { 
+                question: "What is answer?", 
+                answer: "Bosco ponthokkan", 
+                image: "Group 2/photo2.jpg", 
+                questionImage: "puzzle1.jpg", 
+                hint: "Proceed to this location for the next clue..",
+                password: "team2-password"
+            },
+            "group2_qr2-Alberto Marvelli": { 
+                question: "Provide at least 4 correct answers out of 7.", 
+                answer: ['Ebinesh','Ubuntu','Mary','By your light we see light','Ministers','1968','I am the light of the world'],
+                image: "Group 2/photo3.jpg", 
+                questionImage: "puzzle2.jpg", 
+                hint: "Proceed to this location for the next clue..",
+                password: "team2-password"
+            },
+            "group2_qr3-Aloysius Versiglia": { 
+                question: "What is answer?", 
+                answer: "I am because we are", 
+                image: "Group 2/photo4.jpg", 
+                questionImage: "puzzle3.jpg", 
+                hint: "Proceed to this location for the next clue..",
+                password: "team2-password"
+            },
+            "group2_qr4-Callistus Caravario": { 
+                question: "What is answer?", 
+                answer: "By your light we see light", 
+                image: "Group 2/photo5.jpg", 
+                questionImage: "puzzle4.jpg", 
+                hint: "Proceed to this location for the next clue..",
+                password: "team2-password"
+            },
+            "group2_qr5-Joseph Quadrio": { 
+                question: "What is answer?", 
+                answer: "chapel", 
+                image: "correct.jpg", 
+                questionImage: "puuzle5.jpg", 
+                hint: "Congratulations..... Go fast and collect your treasure....",
+                password: "team2-password"
+            },
+            "group3_qr0-August Czartoryski": { 
+                question: "How many triangles are selected?", 
+                answer: "3", 
+                image: "Group 3/photo1.jpg", 
+                questionImage: "photo1.jpg",
+                hint: "Proceed to this location for the next clue..",
+                password: "team3-password"
+            },
+            "group3_qr1-Andrea Beltrami": { 
+                question: "What is answer?", 
+                answer: "Bosco ponthokkan",
+                image: "Group 3/photo2.jpg",
+                questionImage: "puzzle1.jpg",
+                hint: "Proceed to this location for the next clue..",
+                password: "team3-password"
+            },
+            "group3_qr2-Stephen Sandor": { 
+                question: "Provide at least 4 correct answers out of 7.", 
+                answer: ['Ebinesh','Ubuntu','Mary','By your light we see light','Ministers','1968','I am the light of the world'],
+                image: "Group 3/photo3.jpg",
+                questionImage: "puzzle2.jpg",
+                hint: "Proceed to this location for the next clue..",
+                password: "team3-password"
+            },
+            "group3_qr3-Arturo Alfieri": { 
+                question: "What is answer?", 
+                answer: "I am because we are",
+                image: "Group 3/photo4.jpg",
+                questionImage: "puzzle3.jpg",
+                hint: "Proceed to this location for the next clue..",
+                password: "team3-password"
+            },
+            "group3_qr4-Sister Eusebia Palomino": { 
+                question: "What is answer?", 
+                answer: "By your light we see light",
+                image: "Group 3/photo5.jpg",
+                questionImage: "puzzle4.jpg",
+                hint: "Proceed to this location for the next clue..",
+                password: "team3-password"
+            },
+            "group3_qr5-Louis Guanella": { 
+                question: "What is answer?", 
+                answer: "chapel",
+                image: "correct.jpg",
+                questionImage: "puzzle5.jpg",
+                hint: "Congratulations..... Go fast and collect your treasure....",
+                password: "team3-password"
+            },
+            "group4_qr0-Pietro Ricaldone": { 
+                question: "How many triangles are selected?", 
+                answer: "3", 
+                image: "Group 4/photo1.jpg", 
+                questionImage: "photo1.jpg",
+                hint: "Proceed to this location for the next clue..",
+                password: "team4-password"
+            },
+            "group4_qr1-Joseph Fagnano": { 
+                question: "What is answer?", 
+                answer: "Bosco ponthokkan",
+                image: "Group 4/photo2.jpg",
+                questionImage: "puzzle1.jpg",
+                hint: "Proceed to this location for the next clue..",
+                password: "team4-password"
+            },
+            "group4_qr2-Bartolomeo Garelli": { 
+                question: "Provide at least 4 correct answers out of 7.", 
+                answer: ['Ebinesh','Ubuntu','Mary','By your light we see light','Ministers','1968','I am the light of the world'],
+                image: "Group 4/photo3.jpg",
+                questionImage: "puzzle2.jpg",
+                hint: "Proceed to this location for the next clue..",
+                password: "team4-password"
+            },
+            "group4_qr3-Peter Braido": { 
+                question: "What is answer?", 
+                answer: "I am because we are",
+                image: "Group 4/photo4.jpg",
+                questionImage: "puzzle3.jpg",
+                hint: "Proceed to this location for the next clue..",
+                password: "team4-password"
+            },
+            "group4_qr4-Egidio Vigano": { 
+                question: "What is answer?", 
+                answer: "By your light we see light",
+                image: "Group 4/photo5.jpg",
+                questionImage: "puzzle4.jpg",
+                hint: "Proceed to this location for the next clue..",
+                password: "team4-password"
+            },
+            "group4_qr5-Attilio Giordani": { 
+                question: "What is answer?", 
+                answer: "chapel",
+                image: "correct.jpg",
+                questionImage: "puuzle5.jpg",
+                hint: "Congratulations..... Go fast and collect your treasure....",
+                password: "team4-password"
             }
         };
 
@@ -70,23 +268,68 @@
         function handleQRCode(qrCode) {
             if (puzzles[qrCode]) {
                 currentPuzzle = puzzles[qrCode];
-                document.getElementById("puzzleText").innerText = currentPuzzle.question;
-                document.getElementById("questionImage").src = currentPuzzle.questionImage; // Set the question image
-                document.getElementById("puzzle").style.display = 'block';
-                document.getElementById("hint").style.display = 'none'; // Hide the hint initially
+                document.getElementById("puzzle").style.display = 'none';
+                document.getElementById("passwordDiv").style.display = 'block'; // Ask for the team password
             }
         }
 
+        document.getElementById("submitPassword").addEventListener("click", function () {
+            const passwordInput = document.getElementById("teamPasswordInput").value;
+            if (passwordInput === currentPuzzle.password) {
+                if (typeof(currentPuzzle.answer) == 'list') {
+                    document.getElementById("puzzleText2").innerText = currentPuzzle.question;
+                    document.getElementById("questionImage2").src = currentPuzzle.questionImage; // Set the question image
+                    document.getElementById("puzzle2").style.display = 'block';
+                }else{
+                    document.getElementById("puzzleText").innerText = currentPuzzle.question;
+                    document.getElementById("questionImage").src = currentPuzzle.questionImage; // Set the question image
+                    document.getElementById("puzzle").style.display = 'block';
+                }
+                // Correct password
+                document.getElementById("passwordDiv").style.display = 'none';
+            } else {
+                alert("Incorrect password!");
+            }
+        });
+
         document.getElementById("submitAnswer").addEventListener("click", function () {
             const answer = document.getElementById("answerInput").value;
-            if (answer === currentPuzzle.answer) {
+            // Check if the answer is correct by removing any leading/trailing spaces and removing the capitalizing
+            if (currentPuzzle.answer.toLowerCase().trim() === answer.toLowerCase().trim()) {
                 document.getElementById("photoImage").src = currentPuzzle.image;
                 document.getElementById("photo").style.display = 'block';
                 document.getElementById("puzzle").style.display = 'none';
                 document.getElementById("nextHint").innerText = currentPuzzle.hint; // Set the hint for the next stage
                 document.getElementById("hint").style.display = 'block'; // Show the hint
-            } else {
+            }  else {
                 alert("Incorrect answer!");
+            }
+        });
+
+        document.getElementById("submitAnswer2").addEventListener("click", function () {
+            
+            // check if al least 4 answers are correct and Check if the answer is correct by removing any leading/trailing spaces and removing the capitalizing
+            let correctAnswers = 0;
+            for (let i = 1; i <= 7; i++) {
+                const answer = document.getElementById("answerInput" + i).value;
+                answer = answer.toLowerCase().trim();
+                if (currentPuzzle.answer.includes(answer)) {
+                    correctAnswers++;
+                }
+            }
+            // specifically check if the 3rd answer contains the word "mary"  then increment the correctAnswers
+            if (document.getElementById("answerInput3").value.toLowerCase().includes("mary")) {
+                correctAnswers++;
+            }
+
+            if (correctAnswers >= 4) {
+                document.getElementById("photoImage").src = currentPuzzle.image;
+                document.getElementById("photo").style.display = 'block';
+                document.getElementById("puzzle2").style.display = 'none';
+                document.getElementById("nextHint").innerText = currentPuzzle.hint; // Set the hint for the next stage
+                document.getElementById("hint").style.display = 'block'; // Show the hint
+            } else {
+                alert("A minimum of 4 needs to be correct!");
             }
         });
 
