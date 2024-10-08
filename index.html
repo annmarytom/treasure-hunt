@@ -406,17 +406,16 @@
         document.getElementById("submitAnswer").addEventListener("click", function () {
             const answer = document.getElementById("answerInput").value;
             if (typeof(currentPuzzle.answer) == 'object' && currentPuzzle.questionImage == "puzzle5.jpg" ) {
+                let result = currentPuzzle.answer.some(item => answer.toLowerCase().trim().includes(item));
                 // Check if the answer is correct by removing any leading/trailing spaces and removing the capitalizing for any of the correct answers
-                for (let i = 0; i < currentPuzzle.answer.length; i++) {
-                    if (currentPuzzle.answer[i].toLowerCase().trim() === answer.toLowerCase().trim()) {
-                        document.getElementById("photoImage").src = currentPuzzle.image;
-                        document.getElementById("photo").style.display = 'block';
-                        document.getElementById("puzzle").style.display = 'none';
-                        document.getElementById("puzzle2").style.display = 'none';
-                        document.getElementById("nextHint").innerText = currentPuzzle.hint; // Set the hint for the next stage
-                        document.getElementById("hint").style.display = 'block'; // Show the hint
-                        return;
-                    }
+                if (result) {
+                    document.getElementById("photoImage").src = currentPuzzle.image;
+                    document.getElementById("photo").style.display = 'block';
+                    document.getElementById("puzzle").style.display = 'none';
+                    document.getElementById("puzzle2").style.display = 'none';
+                    document.getElementById("nextHint").innerText = currentPuzzle.hint; // Set the hint for the next stage
+                    document.getElementById("hint").style.display = 'block'; // Show the hint
+                    return;
                 }
                 alert("Incorrect answer!");
             }else{
